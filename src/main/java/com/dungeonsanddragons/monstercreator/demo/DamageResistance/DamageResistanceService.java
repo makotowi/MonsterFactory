@@ -21,4 +21,8 @@ public class DamageResistanceService {
     public List<DamageResistance> showDamageResistance() {
         return damageResistanceRepository.findAll();
     }
+
+    public List<DamageResistance> findAllById(List<Long> damageResistance) {
+        return damageResistanceRepository.findAllById(damageResistance);
+    }
 }

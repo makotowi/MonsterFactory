@@ -22,4 +22,12 @@ public class SizeService {
     public List<Size> showSize() {
         return sizeRepository.findAll();
     }
+
+    public List<Size> findAllById(List<Long> size) {
+        return sizeRepository.findAllById(size);
+    }
+
+    public Size findById(Long sizeId) {
+        return sizeRepository.findById(sizeId).get();
+    }
 }

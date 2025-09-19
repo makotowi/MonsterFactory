@@ -1,6 +1,7 @@
 package com.dungeonsanddragons.monstercreator.demo.Senses;
 
 import com.dungeonsanddragons.monstercreator.demo.Card.Card;
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 
 @Entity
@@ -13,6 +14,7 @@ public class Senses {
     private int range;
     @ManyToOne
     @JoinColumn(name = "card_id")
+    @JsonBackReference("card-senses")
     private Card card;
 
     public Card getCard() {

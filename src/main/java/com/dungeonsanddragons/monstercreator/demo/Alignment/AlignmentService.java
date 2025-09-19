@@ -22,4 +22,12 @@ public class AlignmentService {
     public List<Alignment> showAlignment() {
         return alignmentRepository.findAll();
     }
+
+    public List<Alignment> findAllById(List<Long> alignment) {
+        return alignmentRepository.findAllById(alignment);
+    }
+
+    public Alignment findById(Long alignmentId) {
+        return alignmentRepository.findById(alignmentId).get();
+    }
 }

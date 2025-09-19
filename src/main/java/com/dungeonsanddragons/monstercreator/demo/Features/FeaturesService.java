@@ -21,4 +21,8 @@ public class FeaturesService {
     public List<Features> showFeatures() {
         return featuresRepository.findAll();
     }
+
+    public List<Features> findAllById(List<Long> features) {
+        return featuresRepository.findAllById(features);
+    }
 }

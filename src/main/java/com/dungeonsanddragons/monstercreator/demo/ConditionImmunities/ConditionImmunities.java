@@ -1,6 +1,7 @@
 package com.dungeonsanddragons.monstercreator.demo.ConditionImmunities;
 
 import com.dungeonsanddragons.monstercreator.demo.Card.Card;
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 
 @Entity
@@ -12,6 +13,7 @@ public class ConditionImmunities {
     private String name;
     @ManyToOne
     @JoinColumn(name = "card_id")
+    @JsonBackReference("card-conditionImmunities")
     private Card card;
 
     public Card getCard() {

@@ -21,4 +21,8 @@ public class SensesService {
     public List<Senses> showSenses() {
         return sensesRepository.findAll();
     }
+
+    public List<Senses> findAllById(List<Long> senses) {
+        return sensesRepository.findAllById(senses);
+    }
 }

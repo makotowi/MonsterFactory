@@ -21,4 +21,8 @@ public class ActionService {
     public List<Actions> showAction() {
         return actionRepository.findAll();
     }
+
+    public List<Actions> findAllById(List<Long> actions) {
+        return actionRepository.findAllById(actions);
+    }
 }

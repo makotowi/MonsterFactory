@@ -1,6 +1,7 @@
 package com.dungeonsanddragons.monstercreator.demo.Size;
 
 import com.dungeonsanddragons.monstercreator.demo.Card.Card;
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 
 @Entity
@@ -10,9 +11,6 @@ public class Size {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String name;
-    @ManyToOne
-    @JoinColumn(name = "card_id")
-    private Card card;
 
     public Long getId() {
         return id;
@@ -30,11 +28,4 @@ public class Size {
         this.name = name;
     }
 
-    public Card getCard() {
-        return card;
-    }
-
-    public void setCard(Card card) {
-        this.card = card;
-    }
 }

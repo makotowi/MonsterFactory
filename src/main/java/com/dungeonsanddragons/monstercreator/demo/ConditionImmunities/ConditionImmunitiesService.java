@@ -21,4 +21,8 @@ public class ConditionImmunitiesService {
     public ConditionImmunities addConditionImmunities(ConditionImmunities conditionImmunities) {
         return conditionImmunitiesRepository.save(conditionImmunities);
     }
+
+    public List<ConditionImmunities> findAllById(List<Long> conditionImmunities) {
+        return conditionImmunitiesRepository.findAllById(conditionImmunities);
+    }
 }

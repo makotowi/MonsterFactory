@@ -24,13 +24,10 @@ import com.dungeonsanddragons.monstercreator.demo.Skills.Skills;
 import com.dungeonsanddragons.monstercreator.demo.Skills.SkillsService;
 import com.dungeonsanddragons.monstercreator.demo.Type.Type;
 import com.dungeonsanddragons.monstercreator.demo.Type.TypeService;
-import org.intellij.lang.annotations.Language;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -151,7 +148,50 @@ public class CardController {
 
     @PostMapping("/addStatblock")
     @ResponseBody
-    public Card addStatblock(@RequestBody Card card){
+    public Card addStatblock(@RequestBody CardRequest req) {
+        Card card = new Card();
+
+        card.setName(req.getName());
+        card.setArmorClass(req.getArmorClass());
+        card.setHitPoints(req.getHitPoints());
+        card.setSpeed(req.getSpeed());
+        card.setStrength(req.getStrength());
+        card.setDexterity(req.getDexterity());
+        card.setConstitution(req.getConstitution());
+        card.setIntelligence(req.getIntelligence());
+        card.setWisdom(req.getWisdom());
+        card.setCharisma(req.getCharisma());
+        card.setCr(req.getCr());
+        card.setProficiencyBonus(req.getProficiencyBonus());
+
+        card.setSize(sizeService.findById(req.getSizeId()));
+        card.setType(typeService.findById(req.getTypeId()));
+        card.setAlignment(alignmentService.findById(req.getAlignmentId()));
+
+        card.setSkills(skillsService.findAllById(req.getSkills()));
+        card.setDamageResistance(damageResistanceService.findAllById(req.getDamageResistance()));
+        card.setDamageImmunities(damageImmunitiesService.findAllById(req.getDamageImmunities()));
+        card.setConditionImmunities(conditionImmunitiesService.findAllById(req.getConditionImmunities()));
+        card.setSenses(sensesService.findAllById(req.getSenses()));
+        card.setLanguages(languageService.findAllById(req.getLanguages()));
+        card.setFeatures(featuresService.findAllById(req.getFeatures()));
+        card.setActions(actionService.findAllById(req.getActions()));
+        card.setLegendaryActions(legendaryActionService.findAllById(req.getLegendaryActions()));
+
         return cardService.addStatblock(card);
+    }
+
+    @GetMapping("/cards")
+    @ResponseBody
+    public List<Card> getAllCards(){
+        return cardService.getAllCards();
+    }
+    @GetMapping("/card/{id}")
+    public String viewCard(@PathVariable Long id, Model model) {
+        Card card = cardService.getCard(id)
+                .orElseThrow(() -> new RuntimeException("Card not found"));
+
+        model.addAttribute("card", card);
+        return "viewCard";
     }
 }

@@ -21,4 +21,12 @@ public class TypeService {
     public Type addType(Type type) {
         return typeReposytory.save(type);
     }
+
+    public List<Type> findAllById(List<Long> type) {
+        return typeReposytory.findAllById(type);
+    }
+
+    public Type findById(Long typeId) {
+        return typeReposytory.findById(typeId).get();
+    }
 }

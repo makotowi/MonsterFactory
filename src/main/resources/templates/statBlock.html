@@ -139,6 +139,36 @@
         </form>
     </div>
 
+    <button class="btn btn-danger" id="toggleSidebar"
+            style="position: fixed; top: 50%; right: 0; z-index: 1050;">
+        ⇦
+    </button>
+
+    <div id="sidebar" class="sidebar">
+        <h4 class="p-3">Your Monsters</h4>
+        <ul id="cardList" class="list-group list-group-flush"></ul>
+    </div>
+
+    <style>
+        .sidebar {
+            height: 100%;
+            width: 0;
+            position: fixed;
+            top: 0;
+            right: 0;
+            background-color: #f8f9fa;
+            overflow-x: hidden;
+            transition: 0.5s;
+            z-index: 1040;
+            border-left: 2px solid #8b0000;
+            padding-top: 60px;
+        }
+
+        .sidebar.open {
+            width: 300px;
+        }
+    </style>
+
     <script src="statblock.js"></script>
 </body>
 </html>

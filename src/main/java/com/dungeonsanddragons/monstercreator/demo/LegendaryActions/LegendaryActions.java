@@ -1,6 +1,7 @@
 package com.dungeonsanddragons.monstercreator.demo.LegendaryActions;
 
 import com.dungeonsanddragons.monstercreator.demo.Card.Card;
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 
 @Entity
@@ -14,6 +15,7 @@ public class LegendaryActions {
     private String description;
     @ManyToOne
     @JoinColumn(name = "card_id")
+    @JsonBackReference("card-legendaryActions")
     private Card card;
 
     public Card getCard() {

@@ -1,6 +1,7 @@
 package com.dungeonsanddragons.monstercreator.demo.Skills;
 
 import com.dungeonsanddragons.monstercreator.demo.Card.Card;
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 
 @Entity
@@ -12,17 +13,8 @@ public class Skills {
     private String name;
     private int statBlockBonus;
 
-    @ManyToOne
-    @JoinColumn(name = "card_id")
-    private Card card;
 
-    public Card getCard() {
-        return card;
-    }
 
-    public void setCard(Card card) {
-        this.card = card;
-    }
 
     public Long getId() {
         return id;

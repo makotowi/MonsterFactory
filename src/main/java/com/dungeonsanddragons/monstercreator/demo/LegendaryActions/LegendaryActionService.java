@@ -19,4 +19,8 @@ public class LegendaryActionService {
     public List<LegendaryActions> showLegendaryAction() {
         return legendaryActionRepository.findAll();
     }
+
+    public List<LegendaryActions> findAllById(List<Long> legendaryActions) {
+        return legendaryActionRepository.findAllById(legendaryActions);
+    }
 }

@@ -23,4 +23,8 @@ public class LanguageService {
     public List<Languages> showLanguage(){
         return languageRepository.findAll();
     }
+
+    public List<Languages> findAllById(List<Long> languages) {
+        return languageRepository.findAllById(languages);
+    }
 }

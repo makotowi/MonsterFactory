@@ -10,7 +10,13 @@ document.addEventListener("DOMContentLoaded", function (){
 
            container.insertBefore(newSelect, btn);
         });
-    })
+    });
+
+    function collectSelectIds(selector) {
+        return Array.from(document.querySelectorAll(selector))
+            .filter(select => select.value)
+            .map(select => Number(select.value));
+    }
 
 
 
@@ -193,29 +199,29 @@ document.addEventListener("DOMContentLoaded", function (){
 
             const newStatblock = {
                 name: document.getElementById("name").value,
-                size: document.getElementById("size").value,
-                type: document.getElementById("type").value,
-                alignment: document.getElementById("alignment").value,
-                armorClass: document.getElementById("armorClass").value,
-                hitPoints: document.getElementById("hitPoints").value,
-                speed: document.getElementById("speed").value,
-                strength: document.getElementById("strength").value,
-                dexterity: document.getElementById("dexterity").value,
-                constitution: document.getElementById("constitution").value,
-                intelligence: document.getElementById("intelligence").value,
-                wisdom: document.getElementById("wisdom").value,
-                charisma: document.getElementById("charisma").value,
-                skills: document.getElementById("skills").value,
-                damageResistance: document.getElementById("damageResistance").value,
-                damageImmunities: document.getElementById("damageImmunities").value,
-                conditionImmunities: document.getElementById("conditionImmunities").value,
-                senses: document.getElementById("senses").value,
-                languages: document.getElementById("languages").value,
-                cr: document.getElementById("cr").value,
-                proficiencyBonus: document.getElementById("proficiencyBonus").value,
-                features: document.getElementById("features").value,
-                actions: document.getElementById("actions").value,
-                legendaryActions: document.getElementById("legendaryActions").value
+                sizeId: parseInt(document.getElementById("size").value),
+                typeId: parseInt(document.getElementById("type").value),
+                alignmentId: parseInt(document.getElementById("alignment").value),
+                armorClass: Number(document.getElementById("armorClass").value),
+                hitPoints: Number(document.getElementById("hitPoints").value),
+                speed: Number(document.getElementById("speed").value),
+                strength: Number(document.getElementById("strength").value),
+                dexterity: Number(document.getElementById("dexterity").value),
+                constitution: Number(document.getElementById("constitution").value),
+                intelligence: Number(document.getElementById("intelligence").value),
+                wisdom: Number(document.getElementById("wisdom").value),
+                charisma: Number(document.getElementById("charisma").value),
+                cr: Number(document.getElementById("cr").value),
+                proficiencyBonus: Number(document.getElementById("proficiencyBonus").value),
+                skills: collectSelectIds("#skills"),
+                damageResistance: collectSelectIds("#damageResistance"),
+                damageImmunities: collectSelectIds("#damageImmunities"),
+                conditionImmunities: collectSelectIds("#conditionImmunities"),
+                senses: collectSelectIds("#senses"),
+                languages: collectSelectIds("#languages"),
+                features: collectSelectIds("#features"),
+                actions: collectSelectIds("#actions"),
+                legendaryActions: collectSelectIds("#legendaryActions")
             };
 
             fetch("/addStatblock", {
@@ -231,9 +237,59 @@ document.addEventListener("DOMContentLoaded", function (){
                     }
                 })
                 .then(date => {
-                    console.log("Statblock added")
+                    console.log("Statblock added");
+
+                    statblockForm.reset();
+
+                    document.querySelectorAll(".add-field").forEach(btn => {
+                        const selects = btn.parentElement.querySelectorAll("select");
+                        if (selects.length > 1) {
+                            for (let i = 1; i < selects.length; i++){
+                                selects[i].remove();
+                            }
+                        }
+                    })
                 })
         })
     }
     addStatblock();
+
+
+
+    const sidebar = document.getElementById("sidebar");
+    const toggleBtn = document.getElementById("toggleSidebar");
+    const cardList = document.getElementById("cardList");
+
+    toggleBtn.addEventListener("click", () => {
+        sidebar.classList.toggle("open");
+        toggleBtn.textContent = sidebar.classList.contains("open") ? "⇨" : "⇦";
+
+        if (sidebar.classList.contains("open")) {
+            loadCards();
+        }
+    });
+
+    function loadCards() {
+        fetch("/cards")
+            .then(res => res.json())
+            .then(data => {
+                cardList.innerHTML = "";
+                data.forEach(card => {
+                    const li = document.createElement("li");
+                    li.className = "list-group-item d-flex justify-content-between align-items-center";
+                    li.textContent = card.name + " (CR " + card.cr + ")";
+
+                    const btn = document.createElement("button");
+                    btn.className = "btn btn-sm btn-outline-primary";
+                    btn.textContent = "OPEN";
+                    btn.onclick = () => {
+                        window.location.href = "/card/" + card.id;
+                    };
+
+                    li.appendChild(btn);
+                    cardList.appendChild(li);
+                });
+            })
+            .catch(err => console.error("Error loading cards", err));
+    }
 })

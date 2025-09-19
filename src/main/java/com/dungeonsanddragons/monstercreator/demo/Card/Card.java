@@ -1,4 +1,5 @@
 package com.dungeonsanddragons.monstercreator.demo.Card;
+
 import com.dungeonsanddragons.monstercreator.demo.Actions.Actions;
 import com.dungeonsanddragons.monstercreator.demo.Alignment.Alignment;
 import com.dungeonsanddragons.monstercreator.demo.ConditionImmunities.ConditionImmunities;
@@ -23,13 +24,8 @@ public class Card {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
     private String name;
-    @OneToMany(mappedBy = "card")
-    private List<Size> size;
-    @OneToMany(mappedBy = "card")
-    private List<Type> type;
-    @OneToMany(mappedBy = "card")
-    private List<Alignment> alignment;
     private int armorClass;
     private int hitPoints;
     private int speed;
@@ -39,234 +35,176 @@ public class Card {
     private int intelligence;
     private int wisdom;
     private int charisma;
-    @OneToMany(mappedBy = "card")
-    private List<Skills> skills = new ArrayList<>();
-    @OneToMany(mappedBy = "card")
-    private List<Stats> savingThrown = new ArrayList<>();
-    @OneToMany(mappedBy = "card")
-    private List<DamageResistance> damageResistance = new ArrayList<>();
-    @OneToMany(mappedBy = "card")
-    private List<DamageImmunities> damageImmunities = new ArrayList<>();
-    @OneToMany(mappedBy = "card")
-    private List<ConditionImmunities> conditionImmunities = new ArrayList<>();
-    @OneToMany(mappedBy = "card")
-    private List<Senses> senses = new ArrayList<>();
-    @OneToMany(mappedBy = "card")
-    private List<Languages> languages = new ArrayList<>();
     private int cr;
     private int proficiencyBonus;
-    @OneToMany(mappedBy = "card")
+
+    @ManyToOne
+    @JoinColumn(name = "size_id")
+    private Size size;
+
+    @ManyToOne
+    @JoinColumn(name = "type_id")
+    private Type type;
+
+    @ManyToOne
+    @JoinColumn(name = "alignment_id")
+    private Alignment alignment;
+
+    @ManyToMany
+    @JoinTable(
+            name = "card_skills",
+            joinColumns = @JoinColumn(name = "card_id"),
+            inverseJoinColumns = @JoinColumn(name = "skill_id")
+    )
+    private List<Skills> skills = new ArrayList<>();
+
+    @ManyToMany
+    @JoinTable(
+            name = "card_saving_throws",
+            joinColumns = @JoinColumn(name = "card_id"),
+            inverseJoinColumns = @JoinColumn(name = "stat_id")
+    )
+    private List<Stats> savingThrown = new ArrayList<>();
+
+    @ManyToMany
+    @JoinTable(
+            name = "card_damage_resistances",
+            joinColumns = @JoinColumn(name = "card_id"),
+            inverseJoinColumns = @JoinColumn(name = "resistance_id")
+    )
+    private List<DamageResistance> damageResistance = new ArrayList<>();
+
+    @ManyToMany
+    @JoinTable(
+            name = "card_damage_immunities",
+            joinColumns = @JoinColumn(name = "card_id"),
+            inverseJoinColumns = @JoinColumn(name = "immunity_id")
+    )
+    private List<DamageImmunities> damageImmunities = new ArrayList<>();
+
+    @ManyToMany
+    @JoinTable(
+            name = "card_condition_immunities",
+            joinColumns = @JoinColumn(name = "card_id"),
+            inverseJoinColumns = @JoinColumn(name = "condition_id")
+    )
+    private List<ConditionImmunities> conditionImmunities = new ArrayList<>();
+
+    @ManyToMany
+    @JoinTable(
+            name = "card_senses",
+            joinColumns = @JoinColumn(name = "card_id"),
+            inverseJoinColumns = @JoinColumn(name = "sense_id")
+    )
+    private List<Senses> senses = new ArrayList<>();
+
+    @ManyToMany
+    @JoinTable(
+            name = "card_languages",
+            joinColumns = @JoinColumn(name = "card_id"),
+            inverseJoinColumns = @JoinColumn(name = "language_id")
+    )
+    private List<Languages> languages = new ArrayList<>();
+
+    @ManyToMany
+    @JoinTable(
+            name = "card_features",
+            joinColumns = @JoinColumn(name = "card_id"),
+            inverseJoinColumns = @JoinColumn(name = "feature_id")
+    )
     private List<Features> features = new ArrayList<>();
-    @OneToMany(mappedBy = "card")
+
+    @ManyToMany
+    @JoinTable(
+            name = "card_actions",
+            joinColumns = @JoinColumn(name = "card_id"),
+            inverseJoinColumns = @JoinColumn(name = "action_id")
+    )
     private List<Actions> actions = new ArrayList<>();
-    @OneToMany(mappedBy = "card")
+
+    @ManyToMany
+    @JoinTable(
+            name = "card_legendary_actions",
+            joinColumns = @JoinColumn(name = "card_id"),
+            inverseJoinColumns = @JoinColumn(name = "legendary_action_id")
+    )
     private List<LegendaryActions> legendaryActions = new ArrayList<>();
 
-    public Long getId() {
-        return id;
-    }
+    public Long getId() { return id; }
+    public void setId(Long id) { this.id = id; }
 
-    public void setId(Long id) {
-        this.id = id;
-    }
+    public String getName() { return name; }
+    public void setName(String name) { this.name = name; }
 
-    public List<Size> getSize() {
-        return size;
-    }
+    public int getArmorClass() { return armorClass; }
+    public void setArmorClass(int armorClass) { this.armorClass = armorClass; }
 
-    public void setSize(List<Size> size) {
-        this.size = size;
-    }
+    public int getHitPoints() { return hitPoints; }
+    public void setHitPoints(int hitPoints) { this.hitPoints = hitPoints; }
 
-    public List<Type> getType() {
-        return type;
-    }
+    public int getSpeed() { return speed; }
+    public void setSpeed(int speed) { this.speed = speed; }
 
-    public void setType(List<Type> type) {
-        this.type = type;
-    }
+    public int getStrength() { return strength; }
+    public void setStrength(int strength) { this.strength = strength; }
 
-    public String getName() {
-        return name;
-    }
+    public int getDexterity() { return dexterity; }
+    public void setDexterity(int dexterity) { this.dexterity = dexterity; }
 
-    public void setName(String name) {
-        this.name = name;
-    }
+    public int getConstitution() { return constitution; }
+    public void setConstitution(int constitution) { this.constitution = constitution; }
 
-    public List<Alignment> getAlignment() {
-        return alignment;
-    }
+    public int getIntelligence() { return intelligence; }
+    public void setIntelligence(int intelligence) { this.intelligence = intelligence; }
 
-    public void setAlignment(List<Alignment> alignment) {
-        this.alignment = alignment;
-    }
+    public int getWisdom() { return wisdom; }
+    public void setWisdom(int wisdom) { this.wisdom = wisdom; }
 
-    public int getArmorClass() {
-        return armorClass;
-    }
+    public int getCharisma() { return charisma; }
+    public void setCharisma(int charisma) { this.charisma = charisma; }
 
-    public void setArmorClass(int armorClass) {
-        this.armorClass = armorClass;
-    }
+    public int getCr() { return cr; }
+    public void setCr(int cr) { this.cr = cr; }
 
-    public int getHitPoints() {
-        return hitPoints;
-    }
+    public int getProficiencyBonus() { return proficiencyBonus; }
+    public void setProficiencyBonus(int proficiencyBonus) { this.proficiencyBonus = proficiencyBonus; }
 
-    public void setHitPoints(int hitPoints) {
-        this.hitPoints = hitPoints;
-    }
+    public Size getSize() { return size; }
+    public void setSize(Size size) { this.size = size; }
 
-    public int getSpeed() {
-        return speed;
-    }
+    public Type getType() { return type; }
+    public void setType(Type type) { this.type = type; }
 
-    public void setSpeed(int speed) {
-        this.speed = speed;
-    }
+    public Alignment getAlignment() { return alignment; }
+    public void setAlignment(Alignment alignment) { this.alignment = alignment; }
 
-    public int getStrength() {
-        return strength;
-    }
+    public List<Skills> getSkills() { return skills; }
+    public void setSkills(List<Skills> skills) { this.skills = skills; }
 
-    public void setStrength(int strength) {
-        this.strength = strength;
-    }
+    public List<Stats> getSavingThrown() { return savingThrown; }
+    public void setSavingThrown(List<Stats> savingThrown) { this.savingThrown = savingThrown; }
 
-    public int getDexterity() {
-        return dexterity;
-    }
+    public List<DamageResistance> getDamageResistance() { return damageResistance; }
+    public void setDamageResistance(List<DamageResistance> damageResistance) { this.damageResistance = damageResistance; }
 
-    public void setDexterity(int dexterity) {
-        this.dexterity = dexterity;
-    }
+    public List<DamageImmunities> getDamageImmunities() { return damageImmunities; }
+    public void setDamageImmunities(List<DamageImmunities> damageImmunities) { this.damageImmunities = damageImmunities; }
 
-    public int getConstitution() {
-        return constitution;
-    }
+    public List<ConditionImmunities> getConditionImmunities() { return conditionImmunities; }
+    public void setConditionImmunities(List<ConditionImmunities> conditionImmunities) { this.conditionImmunities = conditionImmunities; }
 
-    public void setConstitution(int constitution) {
-        this.constitution = constitution;
-    }
+    public List<Senses> getSenses() { return senses; }
+    public void setSenses(List<Senses> senses) { this.senses = senses; }
 
-    public int getIntelligence() {
-        return intelligence;
-    }
+    public List<Languages> getLanguages() { return languages; }
+    public void setLanguages(List<Languages> languages) { this.languages = languages; }
 
-    public void setIntelligence(int intelligence) {
-        this.intelligence = intelligence;
-    }
+    public List<Features> getFeatures() { return features; }
+    public void setFeatures(List<Features> features) { this.features = features; }
 
-    public int getWisdom() {
-        return wisdom;
-    }
+    public List<Actions> getActions() { return actions; }
+    public void setActions(List<Actions> actions) { this.actions = actions; }
 
-    public void setWisdom(int wisdom) {
-        this.wisdom = wisdom;
-    }
-
-    public int getCharisma() {
-        return charisma;
-    }
-
-    public void setCharisma(int charisma) {
-        this.charisma = charisma;
-    }
-
-    public List<Skills> getSkills() {
-        return skills;
-    }
-
-    public void setSkills(List<Skills> skills) {
-        this.skills = skills;
-    }
-
-    public List<Stats> getSavingThrown() {
-        return savingThrown;
-    }
-
-    public void setSavingThrown(List<Stats> savingThrown) {
-        this.savingThrown = savingThrown;
-    }
-
-    public List<DamageResistance> getDamageResistance() {
-        return damageResistance;
-    }
-
-    public void setDamageResistance(List<DamageResistance> damageResistance) {
-        this.damageResistance = damageResistance;
-    }
-
-    public List<DamageImmunities> getDamageImmunities() {
-        return damageImmunities;
-    }
-
-    public void setDamageImmunities(List<DamageImmunities> damageImmunities) {
-        this.damageImmunities = damageImmunities;
-    }
-
-    public List<ConditionImmunities> getConditionImmunities() {
-        return conditionImmunities;
-    }
-
-    public void setConditionImmunities(List<ConditionImmunities> conditionImmunities) {
-        this.conditionImmunities = conditionImmunities;
-    }
-
-    public List<Senses> getSenses() {
-        return senses;
-    }
-
-    public void setSenses(List<Senses> senses) {
-        this.senses = senses;
-    }
-
-    public List<Languages> getLanguages() {
-        return languages;
-    }
-
-    public void setLanguages(List<Languages> languages) {
-        this.languages = languages;
-    }
-
-    public int getCr() {
-        return cr;
-    }
-
-    public void setCr(int cr) {
-        this.cr = cr;
-    }
-
-    public int getProficiencyBonus() {
-        return proficiencyBonus;
-    }
-
-    public void setProficiencyBonus(int proficiencyBonus) {
-        this.proficiencyBonus = proficiencyBonus;
-    }
-
-    public List<Features> getFeatures() {
-        return features;
-    }
-
-    public void setFeatures(List<Features> features) {
-        this.features = features;
-    }
-
-    public List<Actions> getActions() {
-        return actions;
-    }
-
-    public void setActions(List<Actions> actions) {
-        this.actions = actions;
-    }
-
-    public List<LegendaryActions> getLegendaryActions() {
-        return legendaryActions;
-    }
-
-    public void setLegendaryActions(List<LegendaryActions> legendaryActions) {
-        this.legendaryActions = legendaryActions;
-    }
+    public List<LegendaryActions> getLegendaryActions() { return legendaryActions; }
+    public void setLegendaryActions(List<LegendaryActions> legendaryActions) { this.legendaryActions = legendaryActions; }
 }
