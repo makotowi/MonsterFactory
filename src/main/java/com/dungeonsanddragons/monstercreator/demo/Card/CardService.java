@@ -10,4 +10,8 @@ public class CardService {
     public CardService(CardRepository cardRepository) {
         this.cardRepository = cardRepository;
     }
+
+    public Card addStatblock(Card card) {
+        return cardRepository.save(card);
+    }
 }

@@ -1,5 +1,6 @@
 package com.dungeonsanddragons.monstercreator.demo.Card;
 import com.dungeonsanddragons.monstercreator.demo.Actions.Actions;
+import com.dungeonsanddragons.monstercreator.demo.Alignment.Alignment;
 import com.dungeonsanddragons.monstercreator.demo.ConditionImmunities.ConditionImmunities;
 import com.dungeonsanddragons.monstercreator.demo.DamageImmunities.DamageImmunities;
 import com.dungeonsanddragons.monstercreator.demo.DamageResistance.DamageResistance;
@@ -7,8 +8,10 @@ import com.dungeonsanddragons.monstercreator.demo.Features.Features;
 import com.dungeonsanddragons.monstercreator.demo.Languages.Languages;
 import com.dungeonsanddragons.monstercreator.demo.LegendaryActions.LegendaryActions;
 import com.dungeonsanddragons.monstercreator.demo.Senses.Senses;
+import com.dungeonsanddragons.monstercreator.demo.Size.Size;
 import com.dungeonsanddragons.monstercreator.demo.Skills.Skills;
 import com.dungeonsanddragons.monstercreator.demo.Stats.Stats;
+import com.dungeonsanddragons.monstercreator.demo.Type.Type;
 import jakarta.persistence.*;
 
 import java.util.ArrayList;
@@ -21,8 +24,12 @@ public class Card {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String name;
-    private String size;
-    private String alignment;
+    @OneToMany(mappedBy = "card")
+    private List<Size> size;
+    @OneToMany(mappedBy = "card")
+    private List<Type> type;
+    @OneToMany(mappedBy = "card")
+    private List<Alignment> alignment;
     private int armorClass;
     private int hitPoints;
     private int speed;
@@ -63,6 +70,22 @@ public class Card {
         this.id = id;
     }
 
+    public List<Size> getSize() {
+        return size;
+    }
+
+    public void setSize(List<Size> size) {
+        this.size = size;
+    }
+
+    public List<Type> getType() {
+        return type;
+    }
+
+    public void setType(List<Type> type) {
+        this.type = type;
+    }
+
     public String getName() {
         return name;
     }
@@ -71,19 +94,11 @@ public class Card {
         this.name = name;
     }
 
-    public String getSize() {
-        return size;
-    }
-
-    public void setSize(String size) {
-        this.size = size;
-    }
-
-    public String getAlignment() {
+    public List<Alignment> getAlignment() {
         return alignment;
     }
 
-    public void setAlignment(String alignment) {
+    public void setAlignment(List<Alignment> alignment) {
         this.alignment = alignment;
     }
 

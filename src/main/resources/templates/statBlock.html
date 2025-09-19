@@ -15,12 +15,17 @@
                 <input type="text" id="name" name="name" class="form-control" placeholder="Name">
             </div>
             <div class="mb-3 mt-3">
-                <select  id="size-selector" class="form-select">
+                <select  id="size" class="form-select">
                     <option value="" disabled selected>-- Select Size --</option>
                 </select>
             </div>
             <div class="mb-3 mt-3">
-                <select id="alignment-selector" class="form-select">
+                <select id="type" class="form-select">
+                    <option value="" disabled selected>-- Select Creature Type --</option>
+                </select>
+            </div>
+            <div class="mb-3 mt-3">
+                <select id="alignment" class="form-select">
                     <option value="" disabled selected>-- Select Alignment --</option>
                 </select>
             </div>
@@ -66,36 +71,43 @@
                 <select id="skills" class="form-select">
                     <option value="" disabled selected>-- Select Skills --</option>
                 </select>
+                <button type="button" class="btn btn-success ms-2 add-field">+</button>
             </div>
-            <div class="mb-3 mt-3">
-                <select id="savingThrown" class="form-select">
-                    <option value="" disabled selected>-- Select Saving Thrown --</option>
-                </select>
-            </div>
+<!--            <div class="mb-3 mt-3">-->
+<!--                <select id="savingThrown" class="form-select">-->
+<!--                    <option value="" disabled selected>&#45;&#45; Select Saving Thrown &#45;&#45;</option>-->
+<!--                </select>-->
+<!--                <button type="button" class="btn btn-success ms-2 add-field">+</button>-->
+<!--            </div>-->
             <div class="mb-3 mt-3">
                 <select id="damageResistance" class="form-select">
                     <option value="" disabled selected>-- Select Damage Resistance --</option>
                 </select>
+                <button type="button" class="btn btn-success ms-2 add-field">+</button>
             </div>
             <div class="mb-3 mt-3">
                 <select id="damageImmunities" class="form-select">
                     <option value="" disabled selected>-- Select Damage Immunities --</option>
                 </select>
+                <button type="button" class="btn btn-success ms-2 add-field">+</button>
             </div>
             <div class="mb-3 mt-3">
                 <select id="conditionImmunities" class="form-select">
                     <option value="" disabled selected>-- Select Condition Immunities --</option>
                 </select>
+                <button type="button" class="btn btn-success ms-2 add-field">+</button>
             </div>
             <div class="mb-3 mt-3">
                 <select id="senses" class="form-select">
                     <option value="" disabled selected>-- Select Senses--</option>
                 </select>
+                <button type="button" class="btn btn-success ms-2 add-field">+</button>
             </div>
             <div class="mb-3 mt-3">
                 <select id="languages" class="form-select">
                     <option value="" disabled selected>-- Select Languages--</option>
                 </select>
+                <button type="button" class="btn btn-success ms-2 add-field">+</button>
             </div>
             <div class="mb-3 mt-3">
                 <label for="cr" class="form-lable"></label>
@@ -109,21 +121,23 @@
                 <select id="features" class="form-select">
                     <option value="" disabled selected>-- Select Features--</option>
                 </select>
+                <button type="button" class="btn btn-success ms-2 add-field">+</button>
             </div>
             <div class="mb-3 mt-3">
                 <select id="actions" class="form-select">
                     <option value="" disabled selected>-- Select Actions--</option>
                 </select>
+                <button type="button" class="btn btn-success ms-2 add-field">+</button>
             </div>
             <div class="mb-3 mt-3">
                 <select id="legendaryActions" class="form-select">
                     <option value="" disabled selected>-- Select Legendary Actions--</option>
                 </select>
+                <button type="button" class="btn btn-success ms-2 add-field">+</button>
             </div>
             <button type="submit" class="btn btn-primary" id="btnStatblock">Submit</button>
         </form>
     </div>
-
 
     <script src="statblock.js"></script>
 </body>

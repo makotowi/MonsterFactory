@@ -1,28 +1,18 @@
-package com.dungeonsanddragons.monstercreator.demo.LegendaryActions;
+package com.dungeonsanddragons.monstercreator.demo.Alignment;
 
 import com.dungeonsanddragons.monstercreator.demo.Card.Card;
 import jakarta.persistence.*;
 
 @Entity
-@Table(name = "legendaryActions")
-public class LegendaryActions {
+@Table(name = "alignment")
+public class Alignment {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String name;
-    @Column(length = 5000)
-    private String description;
     @ManyToOne
     @JoinColumn(name = "card_id")
     private Card card;
-
-    public Card getCard() {
-        return card;
-    }
-
-    public void setCard(Card card) {
-        this.card = card;
-    }
 
     public Long getId() {
         return id;
@@ -40,11 +30,11 @@ public class LegendaryActions {
         this.name = name;
     }
 
-    public String getDescription() {
-        return description;
+    public Card getCard() {
+        return card;
     }
 
-    public void setDescription(String description) {
-        this.description = description;
+    public void setCard(Card card) {
+        this.card = card;
     }
 }

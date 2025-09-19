@@ -10,6 +10,7 @@ public class Features {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String name;
+    @Column(length = 5000)
     private String description;
     @ManyToOne
     @JoinColumn(name = "card_id")
